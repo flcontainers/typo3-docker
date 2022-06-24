@@ -51,8 +51,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./latest/apache
+          context: ./latest/fpm
           platforms: linux/amd64,linux/arm64,linux/arm
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.typo3.outputs.tags }}
+          tags: ${{ steps.typo3.outputs.tags }}-fpm
           labels: ${{ steps.typo3.outputs.labels }}
