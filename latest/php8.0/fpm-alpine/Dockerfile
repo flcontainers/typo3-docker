@@ -20,7 +20,7 @@ RUN set -eux; \
 # install base dependencies
 RUN apk add --no-cache \
 		less \
-		mysql-client \
+		mariadb-client \
 		nano \
 		postgresql-client \
 		wget
@@ -43,7 +43,7 @@ RUN set -ex; \
 		libwebp-dev \
 		libzip-dev \
 		postgresql-dev \
-		libmariadb-dev \
+		mariadb-dev \
 	; \
 	\
 	docker-php-ext-configure gd \
