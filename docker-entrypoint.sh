@@ -32,8 +32,6 @@ if [[ "$1" == apache2* ]] || [ "$1" = 'php-fpm' ]; then
 		fi
 
 		echo >&2 "Typo3 not found in $PWD - copying now..."
-		cp /usr/src/typo3/.htaccess .htaccess
-		cp /usr/src/typo3/.user.ini .user.ini
 		ln -s /usr/src/typo3 typo3_src
 		ln -s typo3_src/index.php index.php
 		ln -s typo3_src/typo3 typo3
