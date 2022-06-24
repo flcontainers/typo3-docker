@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI (fpm)
 
 on:
 # Controls when the workflow will run
@@ -51,8 +51,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./latest/fpm-alpine
+          context: ./latest/fpm
           platforms: linux/amd64,linux/arm64,linux/arm
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.typo3.outputs.tags }}-fpm-alpine
+          tags: ${{ steps.typo3.outputs.tags }}-fpm
           labels: ${{ steps.typo3.outputs.labels }}
