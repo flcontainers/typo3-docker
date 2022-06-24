@@ -191,22 +191,28 @@ RUN set -eux; \
 	mv /usr/src/typo3_src* /usr/src/typo3; \
 	rm typo3.tar.gz; \
 	\
+# create baseline .user.ini for php-fpm
+	[ ! -e /usr/src/typo3/.user.ini ]; \
+	{ \
+		echo 'max_execution_time=240'; \
+		echo 'max_input_vars=1500'; \
+		echo 'memory_limit=256M'; \
+		echo 'post_max_size=100M'; \
+		echo 'upload_max_filesize=100M'; \
+	} > /usr/src/typo3/.user.ini; \
+	\
 # create baseline htaccess
 	[ ! -e /usr/src/typo3/.htaccess ]; \
 	{ \
-		echo '# BEGIN Typo3'; \
+		echo '# PHP setup for Typo3'; \
 		echo ''; \
 		echo 'php_value max_execution_time 240'; \
 		echo 'php_value max_input_vars 1500'; \
-		echo 'RewriteEngine On'; \
-		echo 'RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]'; \
-		echo 'RewriteBase /'; \
-		echo 'RewriteRule ^index\.php$ - [L]'; \
-		echo 'RewriteCond %{REQUEST_FILENAME} !-f'; \
-		echo 'RewriteCond %{REQUEST_FILENAME} !-d'; \
-		echo 'RewriteRule . /index.php [L]'; \
+		echo 'php_value memory_limit 256M'; \
+		echo 'php_value post_max_size 100M'; \
+		echo 'php_value upload_max_filesize 100M'; \
 		echo ''; \
-		echo '# END Typo3'; \
+		echo '# END PHP setup for Typo3'; \
 	} > /usr/src/typo3/.htaccess; \
 	\
 	chown -R www-data:www-data /usr/src/typo3;
