@@ -57,7 +57,6 @@ RUN set -ex; \
 		libzip-dev \
 		postgresql-dev \
 		libmariadb-dev \
-		libmcrypt-dev \
 	; \
 {{ ) else ( -}}
 	savedAptMark="$(apt-mark showmanual)"; \
@@ -73,7 +72,6 @@ RUN set -ex; \
 		libzip-dev \
 		libpq-dev \
 		libmariadb-dev \
-		libmcrypt-dev \
 	; \
 {{ ) end -}}
 	\
@@ -82,29 +80,15 @@ RUN set -ex; \
 		--with-jpeg \
 		--with-webp \
 	; \
-	docker-php-ext-install gd \
-	; \
 	docker-php-ext-install -j "$(nproc)" \
 		bcmath \
-		exif \
-		fileinfo \
-		filter \
-		hash \
+		gd \
 		intl \
-		json \
-		mbstring \
 		mysqli \
-		openssl \
-		pdo \
 		pdo_mysql \
 		pdo_pgsql \
 		pgsql \
-		session \
-		standard \
-		spl\
-		xml \
 		zip \
-		zlib \
 	; \
 {{ if is_alpine then ( -}}
 # WARNING: imagick is likely not supported on Alpine: https://github.com/Imagick/imagick/issues/328
@@ -204,6 +188,7 @@ RUN set -eux; \
 	\
 # upstream tarballs include ./typo3/ so this gives us /usr/src/typo3
 	tar -xzf typo3.tar.gz -C /usr/src/; \
+	mv /usr/src/typo3_src* /usr/src/typo3; \
 	rm typo3.tar.gz; \
 	\
 # create baseline htaccess
@@ -211,6 +196,8 @@ RUN set -eux; \
 	{ \
 		echo '# BEGIN Typo3'; \
 		echo ''; \
+		echo 'php_value max_execution_time 240'; \
+		echo 'php_value max_input_vars 1500'; \
 		echo 'RewriteEngine On'; \
 		echo 'RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]'; \
 		echo 'RewriteBase /'; \

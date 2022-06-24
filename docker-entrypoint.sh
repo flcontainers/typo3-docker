@@ -32,21 +32,9 @@ if [[ "$1" == apache2* ]] || [ "$1" = 'php-fpm' ]; then
 		fi
 
 		echo >&2 "Typo3 not found in $PWD - copying now..."
-		sourceTarArgs=(
-			--create
-			--file -
-			--directory /usr/src/typo3
-			--owner "$user" --group "$group"
-		)
-		targetTarArgs=(
-			--extract
-			--file -
-		)
-		if [ "$uid" != '0' ]; then
-			# avoid "tar: .: Cannot utime: Operation not permitted" and "tar: .: Cannot change mode to rwxr-xr-x: Operation not permitted"
-			targetTarArgs+=( --no-overwrite-dir )
-		fi
-		tar "${sourceTarArgs[@]}" . | tar "${targetTarArgs[@]}"
+		ln -s /usr/src/typo3 typo3_src
+		ln -s typo3_src/index.php index.php
+		ln -s typo3_src/typo3 typo3
 		touch FIRST_INSTALL
 		echo >&2 "Complete! Typo3 has been successfully copied to $PWD"
 	fi
