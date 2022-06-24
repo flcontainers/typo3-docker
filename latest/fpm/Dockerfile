@@ -7,8 +7,6 @@
 FROM php:8.1-fpm
 
 #labels
-SHELL ["/bin/bash", "-c"]
-
 ARG APPLICATION="Typo3"
 ARG BUILD_RFC3339="2022-06-25T00:00:00Z"
 ARG REVISION="local"
@@ -16,9 +14,6 @@ ARG DESCRIPTION="Docker container for Typo3"
 ARG PACKAGE="MaxWaldorf/typo3-docker"
 ARG PACKAGE_HUB="MaxWaldorf/typo3"
 ARG VERSION="11.5.12"
-
-# Do not require interaction during build
-ARG DEBIAN_FRONTEND=noninteractive
 
 STOPSIGNAL SIGKILL
 
