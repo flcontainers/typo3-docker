@@ -26,13 +26,16 @@ RUN set -eux; \
 	; \
 	rm -rf /var/lib/apt/lists/*
 {{ ) end -}}
+
 # install base dependencies
+{{ if is_alpine then ( -}}
 RUN apk add --no-cache \
 		less \
 		mysql-client \
 		nano \
 		postgresql-client \
 		wget
+{{ ) else "" end -}}
 
 RUN set -ex; \
 	mkdir -p /var/www/html; \
@@ -54,6 +57,7 @@ RUN set -ex; \
 		libzip-dev \
 		postgresql-dev \
 		libmariadb-dev \
+		libmcrypt-dev \
 	; \
 {{ ) else ( -}}
 	savedAptMark="$(apt-mark showmanual)"; \
@@ -67,8 +71,9 @@ RUN set -ex; \
 		libpng-dev \
 		libwebp-dev \
 		libzip-dev \
-		postgresql-dev \
+		libpq-dev \
 		libmariadb-dev \
+		libmcrypt-dev \
 	; \
 {{ ) end -}}
 	\
@@ -77,12 +82,13 @@ RUN set -ex; \
 		--with-jpeg \
 		--with-webp \
 	; \
+	docker-php-ext-install gd \
+	; \
 	docker-php-ext-install -j "$(nproc)" \
 		bcmath \
 		exif \
 		fileinfo \
 		filter \
-		gd \
 		hash \
 		intl \
 		json \
@@ -92,7 +98,7 @@ RUN set -ex; \
 		pdo \
 		pdo_mysql \
 		pdo_pgsql \
-		postgresql \
+		pgsql \
 		session \
 		standard \
 		spl\
@@ -189,7 +195,7 @@ RUN set -eux; \
 	a2enconf remoteip; \
 # (replace all instances of "%h" with "%a" in LogFormat)
 	find /etc/apache2 -type f -name '*.conf' -exec sed -ri 's/([[:space:]]*LogFormat[[:space:]]+"[^"]*)%h([^"]*")/\1%a\2/g' '{}' +
-
+{{ ) else "" end -}}
 
 RUN set -eux; \
 	version={{ .upstream | @sh }}; \

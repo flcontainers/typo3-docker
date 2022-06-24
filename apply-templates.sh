@@ -52,11 +52,7 @@ for version; do
 				gawk -f "$jqt" Dockerfile.template
 			} > "$dir/Dockerfile"
 
-			if [ "$version" = 'cli' ]; then
-				cp -a cli-entrypoint.sh "$dir/docker-entrypoint.sh"
-			else
-				cp -a docker-entrypoint.sh wp-config-docker.php "$dir/"
-			fi
+				cp -a docker-entrypoint.sh "$dir/"
 		done
 	done
 done
