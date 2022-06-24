@@ -6,6 +6,33 @@
 
 FROM php:8.1-fpm-alpine
 
+#labels
+SHELL ["/bin/bash", "-c"]
+
+ARG APPLICATION="Typo3"
+ARG BUILD_RFC3339="2022-06-25T00:00:00Z"
+ARG REVISION="local"
+ARG DESCRIPTION="Docker container for Typo3"
+ARG PACKAGE="MaxWaldorf/typo3-docker"
+ARG PACKAGE_HUB="MaxWaldorf/typo3"
+ARG VERSION="11.5.12"
+
+# Do not require interaction during build
+ARG DEBIAN_FRONTEND=noninteractive
+
+STOPSIGNAL SIGKILL
+
+LABEL org.opencontainers.image.ref.name="${PACKAGE}" \
+  org.opencontainers.image.created=$BUILD_RFC3339 \
+  org.opencontainers.image.authors="MaxWaldorf" \
+  org.opencontainers.image.documentation="https://github.com/${PACKAGE}/README.md" \
+  org.opencontainers.image.description="${DESCRIPTION}" \
+  org.opencontainers.image.licenses="GPLv3" \
+  org.opencontainers.image.source="https://github.com/${PACKAGE}" \
+  org.opencontainers.image.revision=$REVISION \
+  org.opencontainers.image.version=$VERSION \
+  org.opencontainers.image.url="https://hub.docker.com/r/${PACKAGE_HUB}/"
+
 # persistent dependencies
 RUN set -eux; \
 	apk add --no-cache \
