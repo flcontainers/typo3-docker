@@ -1,20 +1,6 @@
 {
-  "beta": {
-    "phpVersions": [
-      "8.0",
-      "8.1"
-    ],
-    "upstream": "11",
-    "variants": [
-      "apache",
-      "fpm",
-      "fpm-alpine"
-    ],
-    "version": "11"
-  },
   "latest": {
     "phpVersions": [
-      "8.0",
       "8.1"
     ],
     "upstream": "11",
