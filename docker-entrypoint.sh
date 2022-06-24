@@ -35,6 +35,7 @@ if [[ "$1" == apache2* ]] || [ "$1" = 'php-fpm' ]; then
 		ln -s /usr/src/typo3 typo3_src
 		ln -s typo3_src/index.php index.php
 		ln -s typo3_src/typo3 typo3
+		chown -R www-data:www-data /var/www
 		touch FIRST_INSTALL
 		echo >&2 "Complete! Typo3 has been successfully copied to $PWD"
 	fi
