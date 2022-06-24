@@ -54,5 +54,5 @@ jobs:
           context: ./latest/apache
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.guac.outputs.tags }}
-          labels: ${{ steps.guac.outputs.labels }}
+          tags: ${{ steps.typo3.outputs.tags }}
+          labels: ${{ steps.typo3.outputs.labels }}
