@@ -40,7 +40,7 @@ dirCommit() {
 cat <<-EOH
 # this file is generated via https://github.com/MaxWaldorf/typo3-docker/blob/$(fileCommit "$self")/$self
 
-Maintainers: MaxWaldorf
+Maintainers: MaxWaldorf (@MaxWaldorf)
 GitRepo: https://github.com/MaxWaldorf/typo3-docker.git
 EOH
 
