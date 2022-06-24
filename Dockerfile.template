@@ -213,6 +213,18 @@ RUN set -eux; \
 		echo 'php_value upload_max_filesize 100M'; \
 		echo ''; \
 		echo '# END PHP setup for Typo3'; \
+		echo ''; \
+		echo '# BEGIN Typo3 rewrite'; \
+		echo ''; \
+		echo 'RewriteEngine On'; \
+		echo 'RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]'; \
+		echo 'RewriteBase /'; \
+		echo 'RewriteRule ^index\.php$ - [L]'; \
+		echo 'RewriteCond %{REQUEST_FILENAME} !-f'; \
+		echo 'RewriteCond %{REQUEST_FILENAME} !-d'; \
+		echo 'RewriteRule . /index.php [L]'; \
+		echo ''; \
+		echo '# END Typo3 rewrite'; \
 	} > /usr/src/typo3/.htaccess; \
 	\
 	chown -R www-data:www-data /usr/src/typo3;
