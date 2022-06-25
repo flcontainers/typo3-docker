@@ -42,10 +42,10 @@ jobs:
             maxwaldorf/typo3
           # Docker tags based on the following events/attributes
           tags: |
-            type=schedule,enable=true,priority=1000,prefix=,suffix=,pattern=fpm-alpine
+            fpm-alpine
             type=semver,pattern={{version}}-fpm-alpine
             type=semver,pattern={{major}}.{{minor}}-fpm-alpine
-            type=semver,pattern={{major}}-fpm-alpine
+            type=semver,pattern={{major}}-fpm-alpine,enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
 
       - name: Build and push
         uses: docker/build-push-action@v3
