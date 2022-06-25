@@ -34,6 +34,8 @@ RUN set -eux; \
 	apt-get install -y --no-install-recommends \
 # Ghostscript is required for rendering PDF previews
 		ghostscript \
+# ImageMagick is required for advanced image processing
+		imagemagick \
 # wget if not there
 		wget \
 	; \

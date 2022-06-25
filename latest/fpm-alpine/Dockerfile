@@ -37,6 +37,8 @@ RUN set -eux; \
 		ghostscript \
 # Alpine package for "imagemagick" contains ~120 .so files
 		imagemagick \
+# wget if not there
+                wget \
 	;
 
 # install base dependencies
@@ -44,8 +46,7 @@ RUN apk add --no-cache \
 		less \
 		mariadb-client \
 		nano \
-		postgresql-client \
-		wget
+		postgresql-client
 
 RUN set -ex; \
 	mkdir -p /var/www/html; \

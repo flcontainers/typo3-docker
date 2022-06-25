@@ -36,6 +36,8 @@ RUN set -eux; \
 		ghostscript \
 # Alpine package for "imagemagick" contains ~120 .so files
 		imagemagick \
+# wget if not there
+                wget \
 	;
 {{ ) else ( -}}
 RUN set -eux; \
@@ -43,6 +45,8 @@ RUN set -eux; \
 	apt-get install -y --no-install-recommends \
 # Ghostscript is required for rendering PDF previews
 		ghostscript \
+# ImageMagick is required for advanced image processing
+		imagemagick \
 # wget if not there
 		wget \
 	; \
@@ -55,8 +59,7 @@ RUN apk add --no-cache \
 		less \
 		mariadb-client \
 		nano \
-		postgresql-client \
-		wget
+		postgresql-client
 {{ ) else "" end -}}
 
 RUN set -ex; \
