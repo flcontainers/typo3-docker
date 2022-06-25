@@ -42,8 +42,7 @@ jobs:
             maxwaldorf/typo3
           # Docker tags based on the following events/attributes
           tags: |
-            type=schedule
-            type=raw,value=fpm-alpine,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
+            type=schedule,enable=true,priority=1000,prefix=,suffix=,pattern=fpm-alpine
             type=semver,pattern={{version}}-fpm-alpine
             type=semver,pattern={{major}}.{{minor}}-fpm-alpine
             type=semver,pattern={{major}}-fpm-alpine
